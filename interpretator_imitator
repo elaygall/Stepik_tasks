@@ -1,0 +1,37 @@
+dway = {'global': 'None'}
+dvar = {'global': []}
+
+
+def add(namesp, arg):
+    global dvar
+    dvar[namesp].append(arg)
+
+
+def create(namesp, parent):
+    global dway
+    dway[namesp] = parent
+    dvar[namesp] = []
+
+
+def get(namesp, arg):
+    global dict
+    if namesp not in dway:
+        return None
+    if arg in dvar[namesp]:
+        return namesp
+    else:
+        return get(dway[namesp], arg)
+
+
+n = int(input())
+x = 0
+
+while x != n:
+    cmd, namesp, arg = input().split()
+    if cmd == 'add':
+        add(namesp, arg)
+    elif cmd == 'create':
+        create(namesp, arg)
+    elif cmd == 'get':
+        print(get(namesp, arg))
+    x += 1
